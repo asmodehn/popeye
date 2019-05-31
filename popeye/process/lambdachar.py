@@ -5,13 +5,14 @@ from __future__ import annotations
 import functools
 import inspect
 import random
+import typing
 from typing import Callable, Iterable, Deque, Mapping, Dict, Set
 from collections import deque
 
 import hypothesis as hypothesis
 
 
-class LambdaChar:
+class Lambda:
     """
     Representing deterministic computation with a usual purely functional model.
     Useful lambda in python talk from D. Beazley https://www.youtube.com/watch?v=pkCLMl0e_0k
@@ -62,56 +63,34 @@ class LambdaChar:
 
         return self.fun() != other.fun()
 
-    def __aiter__(self):
-        pass
-
-    def __anext__(self):
+    # def __aiter__(self):
+    #     """ Inverted dataflow : for testing
+    #     """
+    #
+    # def __anext__(self):
+    #
+    #
+    # def __iter__(self):
+    #     """ Direct dataflow : for user control
+    #     """
+    #     pass
+    #
+    # def __next__(self):
+    #     pass
 
 
     def __repr__(self):
         return self.repr
 
 
+class Char:
 
-def scheduler(perfsafe: float):
-    """scheduling performance/safety ratio (0..1)"""
+    elems: set
 
-    async def one_test_coro():
-        # draw elem from domain
+    def __init__(self, *args):
+        self.elems = set(args)
 
-        # run test eval
-
-        # keep going
-
-    async def one_run_coro():
-        # use provided elem
-
-        # run eval
-
-        # keep going
-
-
-    while True:
-        # scheduling algorithm # TODO
-        r = random.random()
-        if r > perfsafe:
-            await one_run_coro()
-        else:
-            await one_run_coro()
-
-
-
-
-if __name__ == '__main__':
-
-    import asyncio
-
-    # this is the event loop
-    loop = asyncio.get_event_loop()
-
-    # schedule both the coroutines to run on the event loop
-    loop.run_until_complete(scheduler(0.5))
-
+    #
 
 
 
