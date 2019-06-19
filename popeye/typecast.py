@@ -1,23 +1,19 @@
 import inspect
 
+if __package__ is None:
+    from promptable import PromptableTypeError
+else:
+    from .promptable import PromptableTypeError
 
 # TODO define parsers
 # TODO : handle errors to display nicer message
-
-
-class CastError(Exception):
-
-    original: ValueError
-
-    def __init__(self, message: str, original: ValueError):
-        self.original = original
 
 
 def float_parser(v):
     try:
         return float(v)
     except ValueError as ve:
-        raise CastError(
+        raise PromptableTypeError(
             f"{v} cannot pass as a float",
             original=ve)
 
@@ -26,9 +22,10 @@ def int_parser(v):
     try:
         return int(v)
     except ValueError as ve:
-        raise CastError(
+        raise PromptableTypeError(
             f"{v} cannot pass as an int",
             original=ve)
+
 
 
 def decorator(fun):
